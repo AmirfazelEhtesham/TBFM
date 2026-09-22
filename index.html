@@ -4,31 +4,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>TBFM — Tkinter Based Form Maker</title>
+  <title>TBFM - Tkinter Based Form Maker</title>
 
+  <link rel="icon" type="image/png" href="./TBFM.png">
+
+  <!-- Lalezar -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lalezar&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
   <style>
-    :root {
-      --bg: #080808;
-      --card: rgba(25, 25, 25, .72);
-      --card2: rgba(35, 35, 35, .65);
-      --border: rgba(255, 255, 255, .09);
-      --text: #f4f4f4;
-      --muted: #a7a7a7;
-      --gold: #f5c542;
-      --gold2: #ffdc67;
-      --danger: #ff5c5c;
-      --radius: 22px;
-    }
-
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+    }
+
+    :root {
+      --gold: #ffd21c;
+      --gold2: #ffb800;
+      --bg: #070707;
+      --card: rgba(24, 24, 24, 0.78);
+      --border: rgba(255, 210, 28, 0.16);
+      --text: #f2f2f2;
+      --muted: #a9a9a9;
     }
 
     html {
@@ -36,23 +38,27 @@
     }
 
     body {
+      min-height: 100vh;
       background:
-        radial-gradient(circle at top, rgba(245,197,66,.09), transparent 35%),
+        radial-gradient(circle at 15% 10%, rgba(255, 210, 28, 0.07), transparent 30%),
+        radial-gradient(circle at 85% 30%, rgba(255, 184, 0, 0.04), transparent 28%),
         var(--bg);
       color: var(--text);
-      font-family: Arial, sans-serif;
-      line-height: 1.8;
+      font-family: "Lalezar", cursive;
       overflow-x: hidden;
     }
 
-    body,
-    button,
-    a {
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    h1, h2, h3, .logo, .brand {
-      font-family: "Lalezar", cursive;
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.18;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 35px 35px;
+      z-index: -1;
     }
 
     a {
@@ -65,467 +71,529 @@
       margin: auto;
     }
 
+    /* Header */
+
     header {
       position: sticky;
-      top: 0;
-      z-index: 20;
-      backdrop-filter: blur(18px);
-      background: rgba(8,8,8,.72);
-      border-bottom: 1px solid var(--border);
-    }
+      top: 12px;
+      z-index: 100;
+      width: min(1100px, calc(100% - 30px));
+      margin: 12px auto 0;
+      padding: 10px 14px;
 
-    .nav {
-      min-height: 70px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 15px;
+
+      background: rgba(16, 16, 16, 0.82);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
     }
 
     .brand {
-      font-size: 28px;
-      color: var(--gold);
       display: flex;
       align-items: center;
       gap: 10px;
+      min-width: 0;
     }
 
-    .brand i {
-      font-size: 25px;
+    .brand img {
+      width: 43px;
+      height: 43px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 210, 28, 0.3);
+    }
+
+    .brand span {
+      color: var(--gold);
+      font-size: 23px;
+      white-space: nowrap;
     }
 
     .lang-btn {
-      border: 1px solid var(--border);
-      background: var(--card);
-      color: var(--text);
-      border-radius: 999px;
-      padding: 8px 14px;
+      border: 1px solid rgba(255, 210, 28, 0.35);
+      background: rgba(255, 210, 28, 0.08);
+      color: var(--gold);
+      border-radius: 12px;
+      padding: 8px 13px;
       cursor: pointer;
-      transition: .2s;
+      font-family: "Lalezar", cursive;
+      font-size: 15px;
+      transition: 0.2s;
     }
 
     .lang-btn:hover {
-      border-color: var(--gold);
-      color: var(--gold);
+      background: rgba(255, 210, 28, 0.16);
+      transform: translateY(-1px);
     }
 
-    main {
-      padding-bottom: 70px;
-    }
+    /* Hero */
 
     .hero {
-      min-height: 520px;
-      display: flex;
-      align-items: center;
       text-align: center;
-      justify-content: center;
-      padding: 80px 0;
+      padding: 75px 15px 55px;
     }
 
-    .hero-content {
-      max-width: 800px;
-    }
-
-    .logo-box {
-      width: 105px;
-      height: 105px;
-      margin: 0 auto 20px;
-      border-radius: 30px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(145deg, #292929, #111);
-      border: 1px solid rgba(245,197,66,.3);
-      box-shadow: 0 20px 50px rgba(0,0,0,.4);
-    }
-
-    .logo-box span {
-      font-family: "Lalezar", cursive;
-      font-size: 46px;
-      color: var(--gold);
+    .hero-logo {
+      width: 125px;
+      height: 125px;
+      object-fit: cover;
+      border-radius: 28px;
+      border: 1px solid rgba(255, 210, 28, 0.28);
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+      margin-bottom: 20px;
     }
 
     .hero h1 {
-      font-size: clamp(45px, 8vw, 76px);
+      color: var(--gold);
+      font-size: clamp(38px, 8vw, 70px);
       line-height: 1;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
     }
 
     .hero p {
-      color: var(--muted);
-      font-size: 18px;
-      max-width: 650px;
+      max-width: 700px;
       margin: auto;
+      color: var(--muted);
+      font-size: 19px;
+      line-height: 1.8;
     }
 
-    .buttons {
+    .hero-buttons {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 28px;
+      margin-top: 25px;
     }
 
     .button {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
       gap: 8px;
-      min-height: 44px;
-      padding: 10px 18px;
+      padding: 10px 17px;
       border-radius: 13px;
-      border: 1px solid var(--border);
-      background: var(--card);
-      color: var(--text);
-      cursor: pointer;
-      transition: .2s;
+      border: 1px solid rgba(255, 210, 28, 0.3);
+      background: rgba(255, 210, 28, 0.09);
+      color: var(--gold);
+      font-size: 16px;
+      transition: 0.2s;
     }
 
     .button:hover {
       transform: translateY(-2px);
-      border-color: var(--gold);
+      background: rgba(255, 210, 28, 0.17);
     }
 
     .button.primary {
       background: var(--gold);
       color: #111;
       border-color: var(--gold);
-      font-weight: bold;
     }
 
+    .button.primary:hover {
+      background: var(--gold2);
+    }
+
+    /* Sections */
+
     section {
-      padding: 45px 0;
+      padding: 35px 0;
     }
 
     .section-title {
-      text-align: center;
-      font-size: 36px;
-      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      font-size: 27px;
+      color: var(--gold);
     }
 
-    .section-title::after {
-      content: "";
-      display: block;
-      width: 55px;
-      height: 4px;
-      margin: 8px auto 0;
-      border-radius: 20px;
-      background: var(--gold);
+    .section-title i {
+      font-size: 23px;
     }
 
-    .card {
-      background: linear-gradient(145deg, var(--card), var(--card2));
+    .glass {
+      background: var(--card);
       border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 25px;
-      backdrop-filter: blur(14px);
-      box-shadow: 0 15px 40px rgba(0,0,0,.22);
+      border-radius: 18px;
+      padding: 24px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.22);
     }
 
-    .card p {
-      color: #ccc;
+    .about-text {
+      color: #d0d0d0;
+      line-height: 2;
+      font-size: 17px;
     }
 
-    .grid {
+    /* Features */
+
+    .features {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
+      gap: 14px;
     }
 
     .feature {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      padding: 20px;
       text-align: center;
+      transition: 0.2s;
     }
 
-    .feature i {
-      font-size: 34px;
+    .feature:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255, 210, 28, 0.3);
+    }
+
+    .feature-icon {
+      width: 55px;
+      height: 55px;
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 15px;
+      background: rgba(255, 210, 28, 0.1);
       color: var(--gold);
-      display: block;
-      margin-bottom: 8px;
+      font-size: 28px;
     }
 
     .feature h3 {
-      font-size: 22px;
+      color: #fff;
+      font-size: 20px;
       margin-bottom: 5px;
     }
 
     .feature p {
       color: var(--muted);
       font-size: 14px;
+      line-height: 1.7;
     }
 
-    .release-list {
+    .py-icon {
+      font-family: "Lalezar", cursive;
+      font-size: 27px;
+      line-height: 1;
+    }
+
+    /* Releases */
+
+    .releases {
       display: grid;
-      gap: 12px;
+      gap: 10px;
     }
 
-    .release {
+    .release-card {
+      position: relative;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-      padding: 15px 17px;
-      border-radius: 17px;
-      background: rgba(255,255,255,.035);
-      border: 1px solid var(--border);
+      gap: 13px;
+
+      padding: 13px 15px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255, 210, 28, 0.055),
+          rgba(20, 20, 20, 0.82)
+        );
+
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 14px;
+
+      transition: 0.2s;
+      overflow: hidden;
     }
 
-    .release-info {
+    .release-card::before {
+      content: "";
+      width: 3px;
+      height: 60%;
+      position: absolute;
+      right: 0;
+      top: 20%;
+      border-radius: 10px;
+      background: var(--gold);
+      opacity: 0.75;
+    }
+
+    html[dir="ltr"] .release-card::before {
+      right: auto;
+      left: 0;
+    }
+
+    .release-card:hover {
+      transform: translateX(-2px);
+      border-color: rgba(255, 210, 28, 0.22);
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255, 210, 28, 0.09),
+          rgba(25, 25, 25, 0.9)
+        );
+    }
+
+    .release-icon {
+      flex: 0 0 42px;
+      width: 42px;
+      height: 42px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 12px;
+      background: rgba(255, 210, 28, 0.09);
+      border: 1px solid rgba(255, 210, 28, 0.14);
+      color: var(--gold);
+      font-size: 20px;
+    }
+
+    .release-main {
+      flex: 1;
       min-width: 0;
     }
 
-    .release-info strong {
-      display: block;
-      color: var(--gold);
-      font-size: 19px;
-    }
-
-    .release-info small {
-      color: var(--muted);
-    }
-
-    .release-btns {
+    .release-title-row {
       display: flex;
+      align-items: center;
+      flex-wrap: wrap;
       gap: 7px;
+    }
+
+    .release-title {
+      font-size: 18px;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    .release-tag {
+      color: var(--gold);
+      font-family: "Lalezar", cursive;
+      font-size: 13px;
+      direction: ltr;
+      background: rgba(255, 210, 28, 0.08);
+      border: 1px solid rgba(255, 210, 28, 0.16);
+      padding: 3px 6px;
+      border-radius: 6px;
+    }
+
+    .latest-badge {
+      color: #111;
+      background: var(--gold);
+      border-radius: 6px;
+      padding: 3px 7px;
+      font-size: 11px;
+      line-height: 1;
+    }
+
+    .release-meta {
+      margin-top: 4px;
+      color: #888;
+      font-family: "Lalezar", cursive;
+      font-size: 13px;
+      direction: ltr;
+      text-align: right;
+    }
+
+    html[dir="ltr"] .release-meta {
+      text-align: left;
+    }
+
+    .release-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
       flex-shrink: 0;
     }
 
     .release-btn {
-      width: auto;
-      min-width: 40px;
-      height: 34px;
-      padding: 0 11px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.05);
-      color: var(--text);
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      cursor: pointer;
+      gap: 5px;
+
+      padding: 7px 10px;
+      border-radius: 9px;
+
+      border: 1px solid rgba(255, 210, 28, 0.18);
+      background: rgba(255, 255, 255, 0.035);
+      color: #ddd;
+
+      font-size: 12px;
+      transition: 0.2s;
+      white-space: nowrap;
     }
 
     .release-btn:hover {
-      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(255, 210, 28, 0.08);
+    }
+
+    .release-btn.download {
       color: var(--gold);
     }
 
-    .loading {
-      text-align: center;
-      color: var(--muted);
-      padding: 20px;
-    }
-
-    /* Rating */
-
-    .rating-card {
-      text-align: center;
-    }
-
-    .rating-description {
-      color: var(--muted);
-      margin-bottom: 18px;
-    }
-
-    .rating-stars {
-      display: flex;
-      justify-content: center;
-      direction: ltr;
-      gap: 4px;
-      margin: 12px 0 20px;
-    }
-
-    .rating-star {
-      border: 0;
-      background: transparent;
-      color: #555;
-      font-size: 35px;
-      padding: 5px;
-      cursor: pointer;
-      transition: .15s;
-    }
-
-    .rating-star:hover,
-    .rating-star:hover ~ .rating-star {
-      color: #777;
-    }
-
-    .rating-star:hover {
-      color: var(--gold);
-      transform: scale(1.12);
-    }
-
-    .average-stars {
-      display: flex;
-      justify-content: center;
-      direction: ltr;
-      gap: 2px;
-      font-size: 25px;
-      margin-bottom: 7px;
-    }
-
-    .average-star {
-      position: relative;
-      color: #444;
-    }
-
-    .average-star.full {
-      color: var(--gold);
-    }
-
-    .average-star.half {
-      background: linear-gradient(
-        90deg,
-        var(--gold) 50%,
-        #444 50%
-      );
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .average-text {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .rating-status {
-      min-height: 27px;
-      margin-top: 13px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .rating-status.success {
-      color: #7dff9a;
-    }
-
-    .rating-status.error {
-      color: var(--danger);
-    }
-
-    /* Modal */
-
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 100;
-      background: rgba(0,0,0,.72);
-      backdrop-filter: blur(8px);
+    .release-notes {
       display: none;
+    }
+
+    .release-loading,
+    .release-error,
+    .release-empty {
+      text-align: center;
+      color: var(--muted);
+      padding: 25px;
+      border: 1px dashed rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.02);
+    }
+
+    /* Get */
+
+    .get-box {
+      text-align: center;
+    }
+
+    .command {
+      direction: ltr;
+      text-align: left;
+      display: block;
+      width: fit-content;
+      max-width: 100%;
+      margin: 17px auto;
+      padding: 12px 16px;
+      border-radius: 12px;
+      background: #050505;
+      border: 1px solid rgba(255, 210, 28, 0.13);
+      color: var(--gold);
+      font-family: Consolas, monospace;
+      overflow-x: auto;
+    }
+
+    /* Tutorial */
+
+    .tutorial-steps {
+      display: grid;
+      gap: 16px;
+      margin: 22px 0 6px;
+      text-align: start;
+    }
+
+    .tutorial-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 13px;
+    }
+
+    .step-number {
+      flex: 0 0 36px;
+      width: 36px;
+      height: 36px;
+
+      display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
-    }
 
-    .modal-overlay.show {
-      display: flex;
-    }
-
-    .modal {
-      position: relative;
-      width: min(430px, 100%);
-      background: #171717;
-      border: 1px solid var(--border);
-      border-radius: 25px;
-      padding: 30px;
-      text-align: center;
-      box-shadow: 0 30px 80px rgba(0,0,0,.6);
-    }
-
-    .modal-icon {
-      font-size: 45px;
-      color: var(--gold);
-      margin-bottom: 10px;
-    }
-
-    .modal h3 {
-      font-size: 28px;
-      margin-bottom: 8px;
-    }
-
-    .modal p {
-      color: #ccc;
-      margin-bottom: 20px;
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      width: 35px;
-      height: 35px;
       border-radius: 50%;
-      border: 1px solid var(--border);
-      background: transparent;
-      color: var(--text);
-      cursor: pointer;
+      background: rgba(255, 210, 28, 0.12);
+      border: 1px solid rgba(255, 210, 28, 0.3);
+      color: var(--gold);
+      font-size: 17px;
     }
 
-    /* Language */
-
-    .en {
-      display: none;
+    .step-text {
+      flex: 1;
+      color: #d0d0d0;
+      line-height: 1.9;
+      font-size: 17px;
+      padding-top: 4px;
     }
 
-    body.english {
-      direction: ltr;
-    }
-
-    body.english .fa {
-      display: none;
-    }
-
-    body.english .en {
-      display: inline;
-    }
-
-    body:not(.english) .fa {
-      display: inline;
-    }
-
-    body:not(.english) .en {
-      display: none;
-    }
-
-    body.english .card,
-    body.english .rating-card {
-      text-align: left;
-    }
-
-    body.english .feature {
-      text-align: center;
-    }
-
-    body.english .section-title {
-      text-align: center;
-    }
+    /* Footer */
 
     footer {
-      border-top: 1px solid var(--border);
-      padding: 30px 0;
+      width: min(1100px, calc(100% - 30px));
+      margin: 30px auto 20px;
+      padding: 20px;
       text-align: center;
-      color: var(--muted);
+
+      color: #777;
+      font-size: 14px;
+
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
     }
 
     footer a {
       color: var(--gold);
+      transition: 0.2s;
     }
 
-    @media (max-width: 800px) {
-      .grid {
+    footer a:hover {
+      color: var(--gold2);
+      text-decoration: underline;
+    }
+
+    /* Language */
+
+    .en-text {
+      display: none;
+    }
+
+    body.en .fa-text {
+      display: none;
+    }
+
+    body.en .en-text {
+      display: inline;
+    }
+
+    body.en {
+      direction: ltr;
+    }
+
+    /* Responsive */
+
+    @media (max-width: 700px) {
+
+      .features {
         grid-template-columns: 1fr;
       }
 
       .hero {
-        padding: 60px 0;
-      }
-    }
-
-    @media (max-width: 700px) {
-      .release {
-        padding: 12px;
+        padding-top: 55px;
       }
 
+      .hero-logo {
+        width: 105px;
+        height: 105px;
+      }
+
+      .release-card {
+        align-items: flex-start;
+      }
+
+      .release-actions {
+        flex-direction: column;
+        flex-shrink: 0;
+      }
+
+      /*
+       * Mobile release buttons:
+       * Always use the compact icon-only layout,
+       * regardless of the selected language.
+       */
       .release-btn {
         width: 40px;
         min-width: 40px;
@@ -534,7 +602,7 @@
         min-height: 34px;
         padding: 0;
         gap: 0;
-        flex: 0 0 40px;
+        flex: 0 0 34px;
         overflow: hidden;
         white-space: nowrap;
       }
@@ -550,16 +618,38 @@
         line-height: 1;
       }
 
-      .release-info strong {
-        font-size: 17px;
+      .release-icon {
+        flex-basis: 38px;
+        width: 38px;
+        height: 38px;
       }
 
-      .release-info small {
-        font-size: 12px;
+      .release-title {
+        font-size: 16px;
+      }
+    }
+
+    @media (max-width: 420px) {
+
+      header {
+        border-radius: 14px;
       }
 
-      .rating-star {
-        font-size: 31px;
+      .brand span {
+        font-size: 20px;
+      }
+
+      .hero h1 {
+        font-size: 45px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .release-card {
+        padding: 11px 12px;
+        gap: 9px;
       }
     }
   </style>
@@ -567,972 +657,716 @@
 
 <body>
 
-<header>
-  <div class="container nav">
+  <!-- Header -->
+  <header>
     <a href="#" class="brand">
-      <i class="bi bi-window"></i>
-      TBFM
+      <img src="./TBFM.png" alt="TBFM">
+      <span>TBFM</span>
     </a>
 
-    <button class="lang-btn" id="languageBtn">
+    <button class="lang-btn" onclick="toggleLanguage()">
       <i class="bi bi-translate"></i>
-      <span class="fa">English</span>
-      <span class="en">فارسی</span>
+      <span id="langButtonText">English</span>
     </button>
-  </div>
-</header>
+  </header>
 
-<main>
+  <!-- Hero -->
+  <main>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="container hero-content">
-
-      <div class="logo-box">
-        <span>T</span>
-      </div>
+    <section class="hero">
+      <img src="./TBFM.png" alt="TBFM Logo" class="hero-logo">
 
       <h1>TBFM</h1>
 
-      <p class="fa">
-        ابزار ساخت فرم‌های گرافیکی با Tkinter و پایتون
+      <p>
+        <span class="fa-text">
+          ابزار ساخت فرم‌های گرافیکی با Tkinter و پایتون
+        </span>
+
+        <span class="en-text">
+          A visual GUI form maker powered by Tkinter and Python.
+        </span>
       </p>
 
-      <p class="en">
-        A graphical form maker built with Python and Tkinter.
-      </p>
-
-      <div class="buttons">
+      <div class="hero-buttons">
         <a
-          class="button primary"
           href="https://github.com/AmirFazelEhtesham/TBFM"
           target="_blank"
           rel="noopener"
+          class="button primary"
         >
           <i class="bi bi-github"></i>
-          <span class="fa">گیت‌هاب</span>
-          <span class="en">GitHub</span>
+          <span class="fa-text">گیت‌هاب</span>
+          <span class="en-text">GitHub</span>
         </a>
 
-        <a class="button" href="#releases">
-          <i class="bi bi-box-seam"></i>
-          <span class="fa">نسخه‌ها</span>
-          <span class="en">Releases</span>
+        <a href="#releases" class="button">
+          <i class="bi bi-box-arrow-down"></i>
+          <span class="fa-text">نسخه‌ها</span>
+          <span class="en-text">Releases</span>
         </a>
       </div>
+    </section>
 
-    </div>
-  </section>
+    <!-- About -->
+    <section>
+      <div class="container">
 
-  <!-- ABOUT -->
-  <section>
-    <div class="container">
+        <h2 class="section-title">
+          <i class="bi bi-info-circle"></i>
 
-      <h2 class="section-title">
-        <span class="fa">درباره TBFM</span>
-        <span class="en">About TBFM</span>
-      </h2>
+          <span class="fa-text">درباره TBFM</span>
+          <span class="en-text">About TBFM</span>
+        </h2>
 
-      <div class="card">
+        <div class="glass about-text">
 
-        <p class="fa">
-          TBFM یک ابزار سبک و ساده برای ساخت فرم‌های گرافیکی با Python و Tkinter
-          است. هدف آن ساده‌تر کردن ساخت رابط‌های گرافیکی بدون نیاز به نوشتن
-          تمام کدهای فرم از ابتدا است.
-        </p>
+          <span class="fa-text">
+            همه ما با یک کامپیوتر کار کرده‌ایم و می‌دانیم برای اینکه سیستم‌عاملی مثل ویندوز به ما چیزی که درخواست کرده‌ایم را نشان بدهد، به‌صورت پنجره به ما نشان می‌دهد. این پنجره‌ها ممکن است هر چیزی را نشان بدهند؛ مثل داده، فرم، ابزار و...
+            <br><br>
+            حالا سوالی پیش می‌آید: چطور می‌توانیم این پنجره‌ها را بسازیم تا بتوانیم توی آن‌ها داده نمایش بدهیم؟ جواب زبان برنامه‌نویسی پایتون است! برای پایتون یک کتابخانه‌ای به نام Tkinter وجود دارد که برای همین کار ساخته شده است.
+            <br><br>
+            اما شاید شما دانش کدنویسی کافی برای ساختن این پنجره‌ها نداشته باشید. برای همین برنامه TBFM یا Tkinter Based Form Maker به کمک ما می‌آید! این برنامه ابزاری برای طراحی بصری فرم‌ها و رابط‌های گرافیکی با استفاده از Tkinter در پایتون است. با TBFM می‌توانید فرم خود را طراحی کرده و کد پایتون آن را ایجاد کنید.
+          </span>
 
-        <p class="en">
-          TBFM is a lightweight tool for creating graphical forms with Python
-          and Tkinter. Its goal is to make GUI form creation easier without
-          having to write every part of the form from scratch.
-        </p>
+          <span class="en-text">
+            We have all worked with a computer, and we know that when an operating system such as Windows needs to show us something we requested, it displays it in a window. These windows can show almost anything, such as data, forms, tools, and more.
+            <br><br>
+            This raises a question: how can we create these windows so that we can display data inside them? The answer is Python! Python has a library called Tkinter that was created specifically for this purpose.
+            <br><br>
+            However, you may not have enough coding knowledge to build these windows yourself. That is where TBFM, or Tkinter Based Form Maker, comes in! TBFM is a tool for visually designing forms and graphical interfaces using Tkinter in Python. With TBFM, you can design your form and generate its Python code.
+          </span>
 
-      </div>
-
-    </div>
-  </section>
-
-  <!-- FEATURES -->
-  <section>
-    <div class="container">
-
-      <h2 class="section-title">
-        <span class="fa">ویژگی‌ها</span>
-        <span class="en">Features</span>
-      </h2>
-
-      <div class="grid">
-
-        <div class="card feature">
-          <i class="bi bi-window"></i>
-          <h3>
-            <span class="fa">Tkinter</span>
-            <span class="en">Tkinter</span>
-          </h3>
-          <p>
-            <span class="fa">ساخته شده با Python و Tkinter</span>
-            <span class="en">Built with Python and Tkinter.</span>
-          </p>
-        </div>
-
-        <div class="card feature">
-          <i class="bi bi-lightning-charge"></i>
-          <h3>
-            <span class="fa">سبک</span>
-            <span class="en">Lightweight</span>
-          </h3>
-          <p>
-            <span class="fa">ساده و کم‌حجم</span>
-            <span class="en">Simple and lightweight.</span>
-          </p>
-        </div>
-
-        <div class="card feature">
-          <i class="bi bi-folder2-open"></i>
-          <h3>
-            <span class="fa">باز کردن فایل</span>
-            <span class="en">File Support</span>
-          </h3>
-          <p>
-            <span class="fa">قابلیت باز کردن فایل‌های ساخته شده</span>
-            <span class="en">Open previously created files.</span>
-          </p>
         </div>
 
       </div>
+    </section>
 
-    </div>
-  </section>
+    <!-- Features -->
+    <section>
+      <div class="container">
 
-  <!-- RELEASES -->
-  <section id="releases">
-    <div class="container">
+        <h2 class="section-title">
+          <i class="bi bi-stars"></i>
 
-      <h2 class="section-title">
-        <span class="fa">نسخه‌ها</span>
-        <span class="en">Releases</span>
-      </h2>
+          <span class="fa-text">ویژگی‌ها</span>
+          <span class="en-text">Features</span>
+        </h2>
 
-      <div class="card">
-        <div id="releaseList" class="release-list">
-          <div class="loading">
-            <span class="fa">در حال دریافت نسخه‌ها...</span>
-            <span class="en">Loading releases...</span>
+        <div class="features">
+
+          <div class="feature">
+            <div class="feature-icon">
+              <i class="bi bi-mouse"></i>
+            </div>
+
+            <h3>
+              <span class="fa-text">آسان برای استفاده</span>
+              <span class="en-text">Easy to Use</span>
+            </h3>
+
+            <p>
+              <span class="fa-text">
+                ساخت فرم‌ها بدون نیاز به نوشتن تمام کدها به صورت دستی.
+              </span>
+
+              <span class="en-text">
+                Create forms without manually writing all the code.
+              </span>
+            </p>
           </div>
+
+          <div class="feature">
+            <div class="feature-icon">
+              <span class="py-icon">Py</span>
+            </div>
+
+            <h3>
+              <span class="fa-text">پایتون</span>
+              <span class="en-text">Python</span>
+            </h3>
+
+            <p>
+              <span class="fa-text">
+                تولید کد پایتون برای فرم‌های ساخته‌شده با Tkinter.
+              </span>
+
+              <span class="en-text">
+                Generate Python code for your Tkinter forms.
+              </span>
+            </p>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">
+              <i class="bi bi-folder2-open"></i>
+            </div>
+
+            <h3>
+              <span class="fa-text">باز کردن فایل‌های ساخته‌شده</span>
+              <span class="en-text">Open Created Files</span>
+            </h3>
+
+            <p>
+              <span class="fa-text">
+                فایل‌های ساخته‌شده را دوباره باز کرده و روی آن‌ها کار کنید.
+              </span>
+
+              <span class="en-text">
+                Reopen created files and continue working on them.
+              </span>
+            </p>
+          </div>
+
         </div>
       </div>
+    </section>
 
-    </div>
-  </section>
+    <!-- Releases -->
+    <section id="releases">
+      <div class="container">
 
-  <!-- RATING -->
-  <section id="rating">
-    <div class="container">
+        <h2 class="section-title">
+          <i class="bi bi-box-seam"></i>
 
-      <h2 class="section-title">
-        <span class="fa">به پروژه امتیاز دهید</span>
-        <span class="en">Rate this project</span>
-      </h2>
+          <span class="fa-text">نسخه‌ها</span>
+          <span class="en-text">Releases</span>
+        </h2>
 
-      <div class="card rating-card">
+        <div id="releasesList" class="releases">
 
-        <p class="rating-description">
-          <span class="fa">
-            نظر شما درباره TBFM چیست؟
-          </span>
-          <span class="en">
-            What do you think about TBFM?
-          </span>
-        </p>
+          <div class="release-loading">
+            <i class="bi bi-arrow-repeat"></i>
 
-        <div class="rating-stars" id="ratingStars">
+            <span class="fa-text">
+              در حال دریافت نسخه‌ها...
+            </span>
 
-          <button class="rating-star" data-rating="1" aria-label="1 star">
-            <i class="bi bi-star-fill"></i>
-          </button>
-
-          <button class="rating-star" data-rating="2" aria-label="2 stars">
-            <i class="bi bi-star-fill"></i>
-          </button>
-
-          <button class="rating-star" data-rating="3" aria-label="3 stars">
-            <i class="bi bi-star-fill"></i>
-          </button>
-
-          <button class="rating-star" data-rating="4" aria-label="4 stars">
-            <i class="bi bi-star-fill"></i>
-          </button>
-
-          <button class="rating-star" data-rating="5" aria-label="5 stars">
-            <i class="bi bi-star-fill"></i>
-          </button>
+            <span class="en-text">
+              Loading releases...
+            </span>
+          </div>
 
         </div>
-
-        <div class="average-stars" id="averageStars">
-          <i class="bi bi-star average-star"></i>
-          <i class="bi bi-star average-star"></i>
-          <i class="bi bi-star average-star"></i>
-          <i class="bi bi-star average-star"></i>
-          <i class="bi bi-star average-star"></i>
-        </div>
-
-        <div class="average-text" id="averageText">
-          <span class="fa">در حال دریافت امتیازها...</span>
-          <span class="en">Loading ratings...</span>
-        </div>
-
-        <div class="rating-status" id="ratingStatus"></div>
 
       </div>
+    </section>
 
-    </div>
-  </section>
+    <!-- Get TBFM -->
+    <section>
+      <div class="container">
 
-  <!-- GET TBFM -->
-  <section>
-    <div class="container">
+        <div class="glass get-box">
 
-      <h2 class="section-title">
-        <span class="fa">دریافت TBFM</span>
-        <span class="en">Get TBFM</span>
-      </h2>
-
-      <div class="card" style="text-align:center">
-
-        <p class="fa">
-          برای اجرای TBFM ابتدا Python را نصب کنید.
-        </p>
-
-        <p class="en">
-          Install Python first to run TBFM.
-        </p>
-
-        <div class="buttons">
-
-          <a
-            class="button primary"
-            href="https://www.python.org/downloads/"
-            target="_blank"
-            rel="noopener"
-          >
+          <h2 class="section-title" style="justify-content:center;">
             <i class="bi bi-download"></i>
-            <span class="fa">دریافت پایتون</span>
-            <span class="en">Get Python</span>
-          </a>
+
+            <span class="fa-text">دریافت TBFM</span>
+            <span class="en-text">Get TBFM</span>
+          </h2>
+
+          <p style="color:var(--muted); line-height:1.8;">
+
+            <span class="fa-text">
+              برای اجرای TBFM به Python 3.x و Tkinter نیاز دارید.
+            </span>
+
+            <span class="en-text">
+              TBFM requires Python 3.x and Tkinter.
+            </span>
+
+          </p>
 
           <a
-            class="button"
             href="https://github.com/AmirFazelEhtesham/TBFM"
             target="_blank"
             rel="noopener"
+            class="button primary"
           >
             <i class="bi bi-github"></i>
-            <span class="fa">کد منبع</span>
-            <span class="en">Source Code</span>
+
+            <span class="fa-text">
+              مشاهده در گیت‌هاب
+            </span>
+
+            <span class="en-text">
+              View on GitHub
+            </span>
+
           </a>
 
         </div>
 
       </div>
+    </section>
 
-    </div>
-  </section>
+    <!-- Tutorial -->
+    <section id="tutorial">
+      <div class="container">
 
-  <!-- TUTORIAL -->
-  <section>
-    <div class="container">
+        <h2 class="section-title">
+          <i class="bi bi-journal-text"></i>
 
-      <h2 class="section-title">
-        <span class="fa">راهنما</span>
-        <span class="en">Tutorial</span>
-      </h2>
+          <span class="fa-text">آموزش استفاده از TBFM</span>
+          <span class="en-text">How to Use TBFM</span>
+        </h2>
 
-      <div class="card">
+        <div class="glass">
 
-        <p class="fa">
-          Python را نصب کنید، TBFM را از بخش Releases دریافت کنید و سپس برنامه
-          را اجرا کنید. می‌توانید فرم خود را ساخته و فایل آن را ذخیره کنید.
-        </p>
+          <div class="tutorial-steps">
 
-        <p class="en">
-          Install Python, download TBFM from the Releases section, and run the
-          application. You can then create your form and save the generated file.
-        </p>
+            <div class="tutorial-step">
+
+              <div class="step-number">۱</div>
+
+              <div class="step-text">
+
+                <span class="fa-text">
+                  فایل TBFM.py را اجرا کنید تا پنجره‌ی اصلی برنامه باز شود.
+                </span>
+
+                <span class="en-text">
+                  Run TBFM.py to open the main window.
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="tutorial-step">
+
+              <div class="step-number">۲</div>
+
+              <div class="step-text">
+
+                <span class="fa-text">
+                  اگر می‌خواهید فرم جدیدی بسازید، روی «ساخت پنجره جدید» بزنید، اندازه‌ی پنجره را انتخاب کنید و نام فایل پایتون را وارد کنید. اگر می‌خواهید فرمی که قبلاً ساخته‌اید را ویرایش کنید، روی «باز کردن پنجره جدید» بزنید و نام فایل موجود را وارد کنید.
+                </span>
+
+                <span class="en-text">
+                  To build a new form, click "Make New Window", pick a window size, and enter a Python file name. To edit a form you already made, click "Open New Window" and enter the existing file's name.
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="tutorial-step">
+
+              <div class="step-number">۳</div>
+
+              <div class="step-text">
+
+                <span class="fa-text">
+                  پس از باز شدن فرم، از منوی «جدید» می‌توانید متن‌باکس (TextBox)، لیبل (Label)، دکمه (Button) یا آیکون پنجره اضافه کنید.
+                </span>
+
+                <span class="en-text">
+                  Once the form window opens, use the "New" menu to add a TextBox, Label, Button, or window icon.
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="tutorial-step">
+
+              <div class="step-number">۴</div>
+
+              <div class="step-text">
+
+                <span class="fa-text">
+                  برای هر عنصر، ستون و ردیف مورد نظر را در پنجره‌ی کوچکی که باز می‌شود وارد کرده و روی «Continue» کلیک کنید تا عنصر روی فرم اضافه شود.
+                </span>
+
+                <span class="en-text">
+                  For each element, enter the column and row in the small popup window and click "Continue" to add the element to the form.
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="tutorial-step">
+
+              <div class="step-number">۵</div>
+
+              <div class="step-text">
+
+                <span class="fa-text">
+                  هنگام ساخت دکمه، می‌توانید گزینه‌ی «Custom...» را فعال کنید و کد پایتونی که با کلیک روی دکمه اجرا می‌شود را خودتان بنویسید.
+                </span>
+
+                <span class="en-text">
+                  When adding a Button, you can enable "Custom..." and write your own Python code to run when it's clicked.
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="tutorial-step">
+
+              <div class="step-number">۶</div>
+
+              <div class="step-text">
+
+                <span class="fa-text">
+                  در پایان کار، از منوی File گزینه‌ی Save را انتخاب کنید تا فایل پایتون نهایی فرم شما ذخیره شود.
+                </span>
+
+                <span class="en-text">
+                  When you're done, choose Save from the File menu to write out the final Python file for your form.
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
 
       </div>
+    </section>
 
-    </div>
-  </section>
+  </main>
 
-</main>
+  <!-- Footer -->
+  <footer>
 
-<footer>
-  © 2026
-  <a href="https://AmirFazelEhtesham.github.io">
-    AmirFazel Ehtesham
-  </a>
-</footer>
+    © 2026
 
+    <a
+      href="https://AmirFazelEhtesham.github.io"
+      target="_blank"
+      rel="noopener"
+    >
+      Amirfazel Ehtesham
+    </a>
 
-<!-- 1-STAR MODAL -->
-<div class="modal-overlay" id="ratingModal">
+  </footer>
 
-  <div class="modal">
+  <script>
 
-    <button class="modal-close" id="modalClose" aria-label="Close">
-      <i class="bi bi-x-lg"></i>
-    </button>
+    const GITHUB_API =
+      "https://api.github.com/repos/AmirFazelEhtesham/TBFM/releases";
 
-    <div class="modal-icon">
-      <i class="bi bi-emoji-laughing"></i>
-    </div>
+    /* Language */
 
-    <h3>
-      <span class="fa">یک لحظه!</span>
-      <span class="en">Hold on!</span>
-    </h3>
+    function setLanguage(lang) {
 
-    <p>
-      Really? Seriously? You gonna be kidding me.
-    </p>
+      const isEnglish = lang === "en";
 
-    <button class="button primary" id="modalOkay">
-      <span class="fa">باشه 😭</span>
-      <span class="en">Okay 😭</span>
-    </button>
+      document.body.classList.toggle("en", isEnglish);
 
-  </div>
+      document.documentElement.lang =
+        isEnglish ? "en" : "fa";
 
-</div>
+      document.documentElement.dir =
+        isEnglish ? "ltr" : "rtl";
 
+      document.getElementById("langButtonText").textContent =
+        isEnglish ? "فارسی" : "English";
 
-<script>
-  /*
-   * ==========================================================
-   * TBFM CONFIG
-   * ==========================================================
-   */
+      localStorage.setItem(
+        "tbfm-language",
+        lang
+      );
+    }
 
-  const GIST_ID = "133caf6b26365cb825511d367f149438";
+    function toggleLanguage() {
 
-  /*
-   * TEST TOKEN
-   *
-   * Put the two halves of your GitHub token here.
-   *
-   * Example:
-   *
-   * const TOKEN_PART_1 = "github_pat_xxxxxxxxx";
-   * const TOKEN_PART_2 = "xxxxxxxxxxxxxxxx";
-   *
-   * The browser will combine them at runtime.
-   */
-  const TOKEN_PART_1 = "github_pat_11BZSIWOA0Bg6QR6mPJm13_iVIhbhU1";
-  const TOKEN_PART_2 = "EoINcRKajgi6qzUeGKyByhZLmQvdBZ9AqQXSX4YKERFmS8HwAJn";
+      const current =
+        localStorage.getItem("tbfm-language") || "fa";
 
-  const GITHUB_TOKEN = TOKEN_PART_1 + TOKEN_PART_2;
+      setLanguage(
+        current === "fa" ? "en" : "fa"
+      );
+    }
 
-  const GIST_API =
-    "https://api.github.com/gists/" + GIST_ID;
-
-  const GIST_RAW_URL =
-    "https://gist.githubusercontent.com/AmirFazelEhtesham/" +
-    GIST_ID +
-    "/raw/ratings.json";
-
-  const RATINGS_FILE = "ratings.json";
-
-  let currentLanguage = "fa";
-
-  /*
-   * ==========================================================
-   * LANGUAGE
-   * ==========================================================
-   */
-
-  const languageBtn = document.getElementById("languageBtn");
-
-  languageBtn.addEventListener("click", () => {
-
-    currentLanguage =
-      currentLanguage === "fa" ? "en" : "fa";
-
-    document.documentElement.lang = currentLanguage;
-
-    document.body.classList.toggle(
-      "english",
-      currentLanguage === "en"
+    setLanguage(
+      localStorage.getItem("tbfm-language") || "fa"
     );
 
-    updateAverageText();
+    /* GitHub Releases */
 
-  });
+    function escapeHTML(value) {
 
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 
-  /*
-   * ==========================================================
-   * RELEASES
-   * ==========================================================
-   */
+    }
 
-  async function loadReleases() {
+    function formatDate(date) {
 
-    const releaseList =
-      document.getElementById("releaseList");
+      if (!date) return "";
 
-    try {
-
-      const response = await fetch(
-        "https://api.github.com/repos/AmirFazelEhtesham/TBFM/releases"
+      return new Date(date).toLocaleDateString(
+        "en-US",
+        {
+          year: "numeric",
+          month: "short",
+          day: "numeric"
+        }
       );
 
-      if (!response.ok) {
-        throw new Error("GitHub API error");
-      }
+    }
 
-      const releases = await response.json();
+    function cleanReleaseNotes(body) {
 
-      if (!releases.length) {
+      if (!body) return "";
 
-        releaseList.innerHTML = `
-          <div class="loading">
-            <span class="fa">هنوز نسخه‌ای منتشر نشده است.</span>
-            <span class="en">No releases yet.</span>
-          </div>
-        `;
+      return body
+        .replace(/```[\s\S]*?```/g, "")
+        .replace(/[#*_>`]/g, "")
+        .trim();
 
-        return;
-      }
+    }
 
-      releaseList.innerHTML = "";
+    async function loadReleases() {
 
-      releases.forEach(release => {
+      const container =
+        document.getElementById("releasesList");
 
-        const item = document.createElement("div");
+      try {
 
-        item.className = "release";
-
-        const version =
-          release.tag_name || release.name || "Unknown";
-
-        const date =
-          release.published_at
-            ? new Date(release.published_at).toLocaleDateString()
-            : "";
-
-        item.innerHTML = `
-          <div class="release-info">
-            <strong>${escapeHtml(version)}</strong>
-            <small>${escapeHtml(date)}</small>
-          </div>
-
-          <div class="release-btns">
-
-            <a
-              class="release-btn"
-              href="${escapeAttribute(release.html_url)}"
-              target="_blank"
-              rel="noopener"
-              title="GitHub"
-            >
-              <i class="bi bi-github"></i>
-              <span>GitHub</span>
-            </a>
-
-            ${
-              release.assets && release.assets.length
-              ? `
-                <a
-                  class="release-btn"
-                  href="${escapeAttribute(release.assets[0].browser_download_url)}"
-                  target="_blank"
-                  rel="noopener"
-                  title="Download"
-                >
-                  <i class="bi bi-download"></i>
-                  <span>
-                    ${currentLanguage === "fa" ? "دانلود" : "Download"}
-                  </span>
-                </a>
-              `
-              : ""
+        const response = await fetch(
+          GITHUB_API,
+          {
+            headers: {
+              "Accept":
+                "application/vnd.github+json"
             }
+          }
+        );
 
-          </div>
-        `;
+        if (!response.ok) {
+          throw new Error("GitHub API error");
+        }
 
-        releaseList.appendChild(item);
-
-      });
-
-    } catch (error) {
-
-      releaseList.innerHTML = `
-        <div class="loading">
-          <span class="fa">خطا در دریافت نسخه‌ها.</span>
-          <span class="en">Failed to load releases.</span>
-        </div>
-      `;
-
-    }
-
-  }
-
-
-  /*
-   * ==========================================================
-   * RATING DATA
-   * ==========================================================
-   */
-
-  let currentRatings = [];
-
-
-  function normalizeRatings(data) {
-
-    if (!data) {
-      return [];
-    }
-
-    let ratings = [];
-
-    if (Array.isArray(data)) {
-
-      ratings = data;
-
-    } else if (Array.isArray(data.ratings)) {
-
-      ratings = data.ratings;
-
-    }
-
-    return ratings
-      .map(item => {
+        const releases =
+          await response.json();
 
         if (
-          typeof item === "object" &&
-          item !== null
+          !Array.isArray(releases) ||
+          releases.length === 0
         ) {
-          return Number(item.rating);
+
+          container.innerHTML = `
+
+            <div class="release-empty">
+
+              <i class="bi bi-box"></i>
+
+              <span class="fa-text">
+                هنوز نسخه‌ای منتشر نشده است.
+              </span>
+
+              <span class="en-text">
+                No releases published yet.
+              </span>
+
+            </div>
+
+          `;
+
+          return;
         }
 
-        return Number(item);
+        container.innerHTML = "";
 
-      })
-      .filter(value =>
-        Number.isFinite(value) &&
-        value >= 2 &&
-        value <= 5
-      );
+        releases.forEach(
+          (release, index) => {
 
-  }
+            if (release.draft) return;
 
+            const title =
+              release.name ||
+              release.tag_name ||
+              "Untitled Release";
 
-  /*
-   * ==========================================================
-   * LOAD AVERAGE
-   * ==========================================================
-   */
+            const tag =
+              release.tag_name || "";
 
-  async function loadRatings() {
+            const notes =
+              cleanReleaseNotes(
+                release.body
+              );
 
-    try {
+            const date =
+              formatDate(
+                release.published_at
+              );
 
-      const response = await fetch(
-        GIST_RAW_URL + "?cache=" + Date.now()
-      );
+            const isLatest =
+              index === 0 &&
+              !release.prerelease;
 
-      if (!response.ok) {
-        throw new Error("Could not read Gist");
-      }
+            const card =
+              document.createElement(
+                "article"
+              );
 
-      const data = await response.json();
+            card.className =
+              "release-card";
 
-      currentRatings = normalizeRatings(data);
+            card.innerHTML = `
 
-      renderAverage();
+              <div class="release-icon">
 
-    } catch (error) {
+                <i class="bi bi-box-seam"></i>
 
-      currentRatings = [];
+              </div>
 
-      document.getElementById("averageText").innerHTML = `
-        <span class="fa">امتیازها هنوز در دسترس نیستند.</span>
-        <span class="en">Ratings are currently unavailable.</span>
-      `;
+              <div class="release-main">
 
-    }
+                <div class="release-title-row">
 
-  }
+                  <span class="release-title">
+                    ${escapeHTML(title)}
+                  </span>
 
+                  ${
+                    tag
+                      ? `
+                        <span class="release-tag">
+                          ${escapeHTML(tag)}
+                        </span>
+                      `
+                      : ""
+                  }
 
-  function renderAverage() {
+                  ${
+                    isLatest
+                      ? `
+                        <span class="latest-badge">
 
-    const stars =
-      document.querySelectorAll(
-        "#averageStars .average-star"
-      );
+                          <span class="fa-text">
+                            آخرین
+                          </span>
 
-    if (!currentRatings.length) {
+                          <span class="en-text">
+                            Latest
+                          </span>
 
-      stars.forEach(star => {
-        star.className =
-          "bi bi-star average-star";
-      });
+                        </span>
+                      `
+                      : ""
+                  }
 
-      updateAverageText();
+                </div>
 
-      return;
-    }
+                <div class="release-meta">
+                  ${escapeHTML(date)}
+                </div>
 
-    const total =
-      currentRatings.reduce(
-        (sum, rating) => sum + rating,
-        0
-      );
+                ${
+                  notes
+                    ? `
+                      <div class="release-notes">
+                        ${escapeHTML(notes)}
+                      </div>
+                    `
+                    : ""
+                }
 
-    const average =
-      total / currentRatings.length;
+              </div>
 
-    const rounded =
-      Math.round(average * 2) / 2;
+              <div class="release-actions">
 
-    stars.forEach((star, index) => {
+                <a
+                  class="release-btn download"
+                  href="${escapeHTML(release.html_url)}"
+                  target="_blank"
+                  rel="noopener"
+                  title="Download from GitHub"
+                  aria-label="Download from GitHub"
+                >
 
-      star.className =
-        "bi average-star";
+                  <i class="bi bi-github"></i>
 
-      const position = index + 1;
+                  <span class="fa-text">
+                    دانلود از گیت‌هاب
+                  </span>
 
-      if (position <= rounded) {
+                  <span class="en-text">
+                    Download from GitHub
+                  </span>
 
-        star.classList.add("bi-star-fill");
-        star.classList.add("full");
+                </a>
 
-      } else if (position - 0.5 === rounded) {
+              </div>
 
-        star.classList.add("bi-star-fill");
-        star.classList.add("half");
+            `;
 
-      } else {
+            container.appendChild(card);
 
-        star.classList.add("bi-star");
-
-      }
-
-    });
-
-    updateAverageText(average);
-
-  }
-
-
-  function updateAverageText(averageOverride = null) {
-
-    const text =
-      document.getElementById("averageText");
-
-    if (!currentRatings.length) {
-
-      text.innerHTML = `
-        <span class="fa">هنوز امتیازی ثبت نشده است</span>
-        <span class="en">No ratings yet</span>
-      `;
-
-      return;
-    }
-
-    const total =
-      currentRatings.reduce(
-        (sum, rating) => sum + rating,
-        0
-      );
-
-    const average =
-      averageOverride !== null
-        ? averageOverride
-        : total / currentRatings.length;
-
-    const rounded =
-      Math.round(average * 2) / 2;
-
-    if (currentLanguage === "fa") {
-
-      text.textContent =
-        `${rounded.toFixed(1)} از 5 • ${currentRatings.length} امتیاز`;
-
-    } else {
-
-      text.textContent =
-        `${rounded.toFixed(1)} / 5 • ${currentRatings.length} ratings`;
-
-    }
-
-  }
-
-
-  /*
-   * ==========================================================
-   * SUBMIT RATING
-   * ==========================================================
-   */
-
-  async function submitRating(rating) {
-
-    const status =
-      document.getElementById("ratingStatus");
-
-    status.className = "rating-status";
-
-    status.textContent =
-      currentLanguage === "fa"
-        ? "در حال ثبت امتیاز..."
-        : "Submitting rating...";
-
-    try {
-
-      /*
-       * Read the current Gist first.
-       * This keeps the existing ratings instead of replacing them.
-       */
-
-      const getResponse =
-        await fetch(GIST_API, {
-          method: "GET",
-
-          headers: {
-            "Authorization":
-              "Bearer " + GITHUB_TOKEN,
-
-            "Accept":
-              "application/vnd.github+json"
           }
-        });
-
-      if (!getResponse.ok) {
-        throw new Error(
-          "Unable to read Gist"
         );
-      }
 
-      const gist =
-        await getResponse.json();
+        setLanguage(
+          localStorage.getItem("tbfm-language") || "fa"
+        );
 
-      let ratings = [];
+      } catch (error) {
 
-      if (
-        gist.files &&
-        gist.files[RATINGS_FILE]
-      ) {
+        console.error(error);
 
-        let content =
-          gist.files[RATINGS_FILE].content;
+        container.innerHTML = `
 
-        try {
+          <div class="release-error">
 
-          const parsed =
-            JSON.parse(content);
+            <i class="bi bi-exclamation-triangle"></i>
 
-          ratings =
-            normalizeRatings(parsed);
+            <span class="fa-text">
+              دریافت نسخه‌ها از GitHub با مشکل مواجه شد.
+            </span>
 
-        } catch {
+            <span class="en-text">
+              Could not load releases from GitHub.
+            </span>
 
-          ratings = [];
+            <br><br>
 
-        }
+            <a
+              href="https://github.com/AmirFazelEhtesham/TBFM/releases"
+              target="_blank"
+              rel="noopener"
+              class="button"
+            >
 
-      }
+              <i class="bi bi-github"></i>
 
-      ratings.push(rating);
+              <span class="fa-text">
+                مشاهده نسخه‌ها
+              </span>
 
-      const newData = {
-        ratings: ratings
-      };
+              <span class="en-text">
+                View Releases
+              </span>
 
-      /*
-       * Write the updated rating list.
-       */
+            </a>
 
-      const patchResponse =
-        await fetch(GIST_API, {
+          </div>
 
-          method: "PATCH",
+        `;
 
-          headers: {
-            "Authorization":
-              "Bearer " + GITHUB_TOKEN,
-
-            "Accept":
-              "application/vnd.github+json",
-
-            "Content-Type":
-              "application/json"
-          },
-
-          body: JSON.stringify({
-
-            files: {
-
-              [RATINGS_FILE]: {
-
-                content:
-                  JSON.stringify(
-                    newData,
-                    null,
-                    2
-                  )
-
-              }
-
-            }
-
-          })
-
-        });
-
-      if (!patchResponse.ok) {
-
-        throw new Error(
-          "Unable to update Gist"
+        setLanguage(
+          localStorage.getItem("tbfm-language") || "fa"
         );
 
       }
 
-      currentRatings = ratings;
-
-      renderAverage();
-
-      status.className =
-        "rating-status success";
-
-      status.textContent =
-        currentLanguage === "fa"
-          ? "امتیاز شما ثبت شد! ⭐"
-          : "Your rating was submitted! ⭐";
-
-    } catch (error) {
-
-      console.error(error);
-
-      status.className =
-        "rating-status error";
-
-      status.textContent =
-        currentLanguage === "fa"
-          ? "ثبت امتیاز ناموفق بود."
-          : "Could not submit the rating.";
-
     }
 
-  }
+    loadReleases();
 
-
-  /*
-   * ==========================================================
-   * RATING BUTTONS
-   * ==========================================================
-   */
-
-  const ratingButtons =
-    document.querySelectorAll(".rating-star");
-
-  const ratingModal =
-    document.getElementById("ratingModal");
-
-  const modalClose =
-    document.getElementById("modalClose");
-
-  const modalOkay =
-    document.getElementById("modalOkay");
-
-
-  ratingButtons.forEach(button => {
-
-    button.addEventListener("click", () => {
-
-      const rating =
-        Number(button.dataset.rating);
-
-      if (rating === 1) {
-
-        ratingModal.classList.add("show");
-
-        return;
-      }
-
-      submitRating(rating);
-
-    });
-
-  });
-
-
-  function closeModal() {
-
-    ratingModal.classList.remove("show");
-
-  }
-
-
-  modalClose.addEventListener(
-    "click",
-    closeModal
-  );
-
-  modalOkay.addEventListener(
-    "click",
-    closeModal
-  );
-
-  ratingModal.addEventListener(
-    "click",
-    event => {
-
-      if (event.target === ratingModal) {
-        closeModal();
-      }
-
-    }
-  );
-
-
-  /*
-   * ==========================================================
-   * SECURITY / HTML HELPERS
-   * ==========================================================
-   */
-
-  function escapeHtml(value) {
-
-    return String(value)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-
-  }
-
-
-  function escapeAttribute(value) {
-
-    return escapeHtml(value);
-
-  }
-
-
-  /*
-   * ==========================================================
-   * START
-   * ==========================================================
-   */
-
-  loadReleases();
-  loadRatings();
-
-</script>
+  </script>
 
 </body>
-</html>
+  </html>
