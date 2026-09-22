@@ -433,6 +433,7 @@
 
       font-size: 12px;
       transition: 0.2s;
+      white-space: nowrap;
     }
 
     .release-btn:hover {
@@ -565,6 +566,7 @@
     /* Responsive */
 
     @media (max-width: 700px) {
+
       .features {
         grid-template-columns: 1fr;
       }
@@ -584,16 +586,36 @@
 
       .release-actions {
         flex-direction: column;
+        flex-shrink: 0;
       }
 
+      /*
+       * Mobile release buttons:
+       * Always use the compact icon-only layout,
+       * regardless of the selected language.
+       */
       .release-btn {
         width: 40px;
+        min-width: 40px;
+        max-width: 40px;
         height: 34px;
+        min-height: 34px;
         padding: 0;
+        gap: 0;
+        flex: 0 0 34px;
+        overflow: hidden;
+        white-space: nowrap;
       }
 
       .release-btn span {
-        display: none;
+        display: none !important;
+      }
+
+      .release-btn i {
+        display: block;
+        flex: 0 0 auto;
+        font-size: 16px;
+        line-height: 1;
       }
 
       .release-icon {
@@ -608,6 +630,7 @@
     }
 
     @media (max-width: 420px) {
+
       header {
         border-radius: 14px;
       }
@@ -869,6 +892,7 @@
             <span class="en-text">
               View on GitHub
             </span>
+
           </a>
 
         </div>
@@ -956,7 +980,7 @@
                 </span>
 
                 <span class="en-text">
-                  For each element, enter the column and row in the small popup window and click "Continue" to add it to the form.
+                  For each element, enter the column and row in the small popup window and click "Continue" to add the element to the form.
                 </span>
 
               </div>
@@ -1261,6 +1285,7 @@
                   target="_blank"
                   rel="noopener"
                   title="Download from GitHub"
+                  aria-label="Download from GitHub"
                 >
 
                   <i class="bi bi-github"></i>
