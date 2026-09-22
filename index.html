@@ -481,6 +481,45 @@
       overflow-x: auto;
     }
 
+    /* Tutorial */
+
+    .tutorial-steps {
+      display: grid;
+      gap: 16px;
+      margin: 22px 0 6px;
+      text-align: start;
+    }
+
+    .tutorial-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 13px;
+    }
+
+    .step-number {
+      flex: 0 0 36px;
+      width: 36px;
+      height: 36px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+      background: rgba(255, 210, 28, 0.12);
+      border: 1px solid rgba(255, 210, 28, 0.3);
+      color: var(--gold);
+      font-size: 17px;
+    }
+
+    .step-text {
+      flex: 1;
+      color: #d0d0d0;
+      line-height: 1.9;
+      font-size: 17px;
+      padding-top: 4px;
+    }
+
     /* Footer */
 
     footer {
@@ -799,8 +838,6 @@
             </span>
           </p>
 
-          <code class="command">python TBFM.py</code>
-
           <a
             href="https://github.com/AmirFazelEhtesham/TBFM"
             target="_blank"
@@ -813,6 +850,98 @@
             <span class="en-text">View on GitHub</span>
           </a>
 
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Tutorial -->
+    <section id="tutorial">
+      <div class="container">
+
+        <h2 class="section-title">
+          <i class="bi bi-journal-text"></i>
+
+          <span class="fa-text">آموزش استفاده از TBFM</span>
+          <span class="en-text">How to Use TBFM</span>
+        </h2>
+
+        <div class="glass">
+          <div class="tutorial-steps">
+
+            <div class="tutorial-step">
+              <div class="step-number">۱</div>
+              <div class="step-text">
+                <span class="fa-text">
+                  فایل TBFM.py را اجرا کنید تا پنجره‌ی اصلی برنامه باز شود.
+                </span>
+                <span class="en-text">
+                  Run TBFM.py to open the main window.
+                </span>
+              </div>
+            </div>
+
+            <div class="tutorial-step">
+              <div class="step-number">۲</div>
+              <div class="step-text">
+                <span class="fa-text">
+                  اگر می‌خواهید فرم جدیدی بسازید، روی «ساخت پنجره جدید» بزنید، اندازه‌ی پنجره را انتخاب کنید و نام فایل پایتون را وارد کنید. اگر می‌خواهید فرمی که قبلاً ساخته‌اید را ویرایش کنید، روی «باز کردن پنجره جدید» بزنید و نام فایل موجود را وارد کنید.
+                </span>
+                <span class="en-text">
+                  To build a new form, click "Make New Window", pick a window size, and enter a Python file name. To edit a form you already made, click "Open New Window" and enter the existing file's name.
+                </span>
+              </div>
+            </div>
+
+            <div class="tutorial-step">
+              <div class="step-number">۳</div>
+              <div class="step-text">
+                <span class="fa-text">
+                  پس از باز شدن فرم، از منوی «جدید» می‌توانید متن‌باکس (TextBox)، لیبل (Label)، دکمه (Button) یا آیکون پنجره اضافه کنید.
+                </span>
+                <span class="en-text">
+                  Once the form window opens, use the "New" menu to add a TextBox, Label, Button, or window icon.
+                </span>
+              </div>
+            </div>
+
+            <div class="tutorial-step">
+              <div class="step-number">۴</div>
+              <div class="step-text">
+                <span class="fa-text">
+                  برای هر عنصر، ستون و ردیف مورد نظر را در پنجره‌ی کوچکی که باز می‌شود وارد کرده و روی «Continue» کلیک کنید تا عنصر روی فرم اضافه شود.
+                </span>
+                <span class="en-text">
+                  For each element, enter the column and row in the small popup window and click "Continue" to add it to the form.
+                </span>
+              </div>
+            </div>
+
+            <div class="tutorial-step">
+              <div class="step-number">۵</div>
+              <div class="step-text">
+                <span class="fa-text">
+                  هنگام ساخت دکمه، می‌توانید گزینه‌ی «Custom...» را فعال کنید و کد پایتونی که با کلیک روی دکمه اجرا می‌شود را خودتان بنویسید.
+                </span>
+                <span class="en-text">
+                  When adding a Button, you can enable "Custom..." and write your own Python code to run when it's clicked.
+                </span>
+              </div>
+            </div>
+
+            <div class="tutorial-step">
+              <div class="step-number">۶</div>
+              <div class="step-text">
+                <span class="fa-text">
+                  در پایان کار، از منوی File گزینه‌ی Save را انتخاب کنید تا فایل پایتون نهایی فرم شما ذخیره شود.
+                </span>
+                <span class="en-text">
+                  When you're done, choose Save from the File menu to write out the final Python file for your form.
+                </span>
+              </div>
+            </div>
+
+          </div>
         </div>
 
       </div>
