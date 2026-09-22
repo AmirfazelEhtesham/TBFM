@@ -1,0 +1,118 @@
+name: Process TBFM Rating
+
+on:
+  issues:
+    types:
+      - opened
+
+permissions:
+  issues: write
+
+jobs:
+  process-rating:
+    if: startsWith(github.event.issue.title, 'TBFM Rating:')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Extract rating
+        id: rating
+        env:
+          TITLE: ${{ github.event.issue.title }}
+        run: |
+          RATING=$(printf '%s' "$TITLE" | sed -n 's/^TBFM Rating: \([2-5]\)$/\1/p')
+
+          if [ -z "$RATING" ]; then
+            echo "Invalid rating."
+            exit 1
+          fi
+
+          echo "rating=$RATING" >> "$GITHUB_OUTPUT"
+
+      - name: Read current Gist
+        id: gist
+        env:
+          GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
+          GIST_ID: ${{ secrets.TBFM_GIST_ID }}
+        run: |
+          curl -fsSL \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $GIST_TOKEN" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/gists/$GIST_ID" \
+            > gist-response.json
+
+          jq -e '.files["ratings.json"].content' gist-response.json \
+            > /dev/null
+
+      - name: Calculate new rating data
+        env:
+          RATING: ${{ steps.rating.outputs.rating }}
+        run: |
+          jq \
+            --arg rating "$RATING" \
+            '
+            .ratings[$rating] += 1
+            |
+            .count =
+              (
+                .ratings["2"] +
+                .ratings["3"] +
+                .ratings["4"] +
+                .ratings["5"]
+              )
+            |
+            .average =
+              (
+                (
+                  2 * .ratings["2"] +
+                  3 * .ratings["3"] +
+                  4 * .ratings["4"] +
+                  5 * .ratings["5"]
+                ) / .count
+              )
+            |
+            .average = ((.average * 100) | round / 100)
+            ' \
+            < <(
+              jq -r '.files["ratings.json"].content' gist-response.json
+            ) \
+            > ratings-new.json
+
+          cat ratings-new.json
+
+      - name: Update Gist
+        env:
+          GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
+          GIST_ID: ${{ secrets.TBFM_GIST_ID }}
+        run: |
+          CONTENT=$(cat ratings-new.json)
+
+          jq -n \
+            --arg content "$CONTENT" \
+            '{
+              files: {
+                "ratings.json": {
+                  content: $content
+                }
+              }
+            }' \
+            > gist-update.json
+
+          curl -fsSL \
+            -X PATCH \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $GIST_TOKEN" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            -H "Content-Type: application/json" \
+            "https://api.github.com/gists/$GIST_ID" \
+            -d @gist-update.json
+
+      - name: Close rating issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          gh issue close "$ISSUE_NUMBER" \
+            --repo "$REPOSITORY" \
+            --comment "Rating recorded. Thanks for rating TBFM!"
