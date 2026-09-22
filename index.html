@@ -380,8 +380,8 @@
 
     .release-tag {
       color: var(--gold);
-      font-family: Arial, sans-serif;
-      font-size: 11px;
+      font-family: "Lalezar", cursive;
+      font-size: 13px;
       direction: ltr;
       background: rgba(255, 210, 28, 0.08);
       border: 1px solid rgba(255, 210, 28, 0.16);
@@ -401,8 +401,8 @@
     .release-meta {
       margin-top: 4px;
       color: #888;
-      font-family: Arial, sans-serif;
-      font-size: 11px;
+      font-family: "Lalezar", cursive;
+      font-size: 13px;
       direction: ltr;
       text-align: right;
     }
@@ -877,9 +877,7 @@
       if (!date) return "";
 
       return new Date(date).toLocaleDateString(
-        document.documentElement.lang === "fa"
-          ? "fa-IR"
-          : "en-US",
+        "en-US",
         {
           year: "numeric",
           month: "short",
