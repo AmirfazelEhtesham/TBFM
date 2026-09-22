@@ -66,6 +66,10 @@
       text-decoration: none;
     }
 
+    button {
+      font-family: inherit;
+    }
+
     .container {
       width: min(1100px, calc(100% - 30px));
       margin: auto;
@@ -460,6 +464,205 @@
       background: rgba(255,255,255,0.02);
     }
 
+    /* Rating */
+
+    .rating-box {
+      text-align: center;
+    }
+
+    .rating-summary {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .average-stars {
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      direction: ltr;
+    }
+
+    .average-star {
+      font-size: 30px;
+      line-height: 1;
+    }
+
+    .average-star.full {
+      color: var(--gold);
+    }
+
+    .average-star.empty {
+      color: #333;
+    }
+
+    .average-star.half {
+      background:
+        linear-gradient(
+          90deg,
+          var(--gold) 50%,
+          #333 50%
+        );
+
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .average-number {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .rating-choice {
+      display: flex;
+      justify-content: center;
+      gap: 7px;
+      margin-top: 20px;
+      direction: ltr;
+    }
+
+    .rating-star {
+      border: 0;
+      background: transparent;
+      color: #444;
+      cursor: pointer;
+      font-size: 30px;
+      padding: 5px;
+      transition:
+        color .15s ease,
+        transform .15s ease;
+    }
+
+    .rating-star:hover,
+    .rating-star:focus {
+      color: var(--gold);
+      transform: scale(1.12);
+      outline: none;
+    }
+
+    .rating-status {
+      min-height: 22px;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* Rating Modal */
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 20px;
+
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+    }
+
+    .modal-overlay[hidden] {
+      display: none;
+    }
+
+    .rating-modal {
+      position: relative;
+
+      width: min(420px, 100%);
+      padding: 28px;
+
+      text-align: center;
+
+      background: rgba(20, 20, 20, 0.97);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+
+      box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.6);
+
+      animation: modalIn 0.18s ease-out;
+    }
+
+    @keyframes modalIn {
+      from {
+        opacity: 0;
+        transform: scale(0.94) translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .modal-icon {
+      width: 60px;
+      height: 60px;
+
+      margin: 0 auto 15px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 18px;
+
+      background: rgba(255, 210, 28, 0.1);
+      color: var(--gold);
+
+      font-size: 30px;
+    }
+
+    .rating-modal h3 {
+      color: #fff;
+      font-size: 23px;
+      margin-bottom: 8px;
+    }
+
+    .rating-modal p {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+
+      width: 35px;
+      height: 35px;
+
+      border: 0;
+      border-radius: 10px;
+
+      background: rgba(255,255,255,0.05);
+      color: #aaa;
+
+      cursor: pointer;
+    }
+
+    html[dir="ltr"] .modal-close {
+      right: auto;
+      left: 10px;
+    }
+
+    .modal-close:hover {
+      color: var(--gold);
+      background: rgba(255, 210, 28, 0.08);
+    }
+
+    .rating-modal .button {
+      margin-top: 18px;
+      cursor: pointer;
+      border: none;
+    }
+
     /* Get */
 
     .get-box {
@@ -594,6 +797,7 @@
        * Always use the compact icon-only layout,
        * regardless of the selected language.
        */
+
       .release-btn {
         width: 40px;
         min-width: 40px;
@@ -627,6 +831,18 @@
       .release-title {
         font-size: 16px;
       }
+
+      .average-star {
+        font-size: 27px;
+      }
+
+      .rating-star {
+        font-size: 28px;
+      }
+
+      .rating-modal {
+        padding: 24px 20px;
+      }
     }
 
     @media (max-width: 420px) {
@@ -658,27 +874,53 @@
 <body>
 
   <!-- Header -->
+
   <header>
+
     <a href="#" class="brand">
-      <img src="./TBFM.png" alt="TBFM">
+
+      <img
+        src="./TBFM.png"
+        alt="TBFM"
+      >
+
       <span>TBFM</span>
+
     </a>
 
-    <button class="lang-btn" onclick="toggleLanguage()">
+    <button
+      class="lang-btn"
+      onclick="toggleLanguage()"
+      type="button"
+    >
+
       <i class="bi bi-translate"></i>
-      <span id="langButtonText">English</span>
+
+      <span id="langButtonText">
+        English
+      </span>
+
     </button>
+
   </header>
 
+
   <!-- Hero -->
+
   <main>
 
     <section class="hero">
-      <img src="./TBFM.png" alt="TBFM Logo" class="hero-logo">
+
+      <img
+        src="./TBFM.png"
+        alt="TBFM Logo"
+        class="hero-logo"
+      >
 
       <h1>TBFM</h1>
 
       <p>
+
         <span class="fa-text">
           ابزار ساخت فرم‌های گرافیکی با Tkinter و پایتون
         </span>
@@ -686,86 +928,168 @@
         <span class="en-text">
           A visual GUI form maker powered by Tkinter and Python.
         </span>
+
       </p>
 
       <div class="hero-buttons">
+
         <a
           href="https://github.com/AmirFazelEhtesham/TBFM"
           target="_blank"
           rel="noopener"
           class="button primary"
         >
+
           <i class="bi bi-github"></i>
-          <span class="fa-text">گیت‌هاب</span>
-          <span class="en-text">GitHub</span>
+
+          <span class="fa-text">
+            گیت‌هاب
+          </span>
+
+          <span class="en-text">
+            GitHub
+          </span>
+
         </a>
 
-        <a href="#releases" class="button">
+        <a
+          href="#releases"
+          class="button"
+        >
+
           <i class="bi bi-box-arrow-down"></i>
-          <span class="fa-text">نسخه‌ها</span>
-          <span class="en-text">Releases</span>
+
+          <span class="fa-text">
+            نسخه‌ها
+          </span>
+
+          <span class="en-text">
+            Releases
+          </span>
+
         </a>
+
+        <a
+          href="#rating"
+          class="button"
+        >
+
+          <i class="bi bi-star"></i>
+
+          <span class="fa-text">
+            امتیاز
+          </span>
+
+          <span class="en-text">
+            Rate
+          </span>
+
+        </a>
+
       </div>
+
     </section>
 
+
     <!-- About -->
+
     <section>
+
       <div class="container">
 
         <h2 class="section-title">
+
           <i class="bi bi-info-circle"></i>
 
-          <span class="fa-text">درباره TBFM</span>
-          <span class="en-text">About TBFM</span>
+          <span class="fa-text">
+            درباره TBFM
+          </span>
+
+          <span class="en-text">
+            About TBFM
+          </span>
+
         </h2>
 
         <div class="glass about-text">
 
           <span class="fa-text">
+
             همه ما با یک کامپیوتر کار کرده‌ایم و می‌دانیم برای اینکه سیستم‌عاملی مثل ویندوز به ما چیزی که درخواست کرده‌ایم را نشان بدهد، به‌صورت پنجره به ما نشان می‌دهد. این پنجره‌ها ممکن است هر چیزی را نشان بدهند؛ مثل داده، فرم، ابزار و...
+
             <br><br>
+
             حالا سوالی پیش می‌آید: چطور می‌توانیم این پنجره‌ها را بسازیم تا بتوانیم توی آن‌ها داده نمایش بدهیم؟ جواب زبان برنامه‌نویسی پایتون است! برای پایتون یک کتابخانه‌ای به نام Tkinter وجود دارد که برای همین کار ساخته شده است.
+
             <br><br>
+
             اما شاید شما دانش کدنویسی کافی برای ساختن این پنجره‌ها نداشته باشید. برای همین برنامه TBFM یا Tkinter Based Form Maker به کمک ما می‌آید! این برنامه ابزاری برای طراحی بصری فرم‌ها و رابط‌های گرافیکی با استفاده از Tkinter در پایتون است. با TBFM می‌توانید فرم خود را طراحی کرده و کد پایتون آن را ایجاد کنید.
+
           </span>
 
           <span class="en-text">
+
             We have all worked with a computer, and we know that when an operating system such as Windows needs to show us something we requested, it displays it in a window. These windows can show almost anything, such as data, forms, tools, and more.
+
             <br><br>
+
             This raises a question: how can we create these windows so that we can display data inside them? The answer is Python! Python has a library called Tkinter that was created specifically for this purpose.
+
             <br><br>
+
             However, you may not have enough coding knowledge to build these windows yourself. That is where TBFM, or Tkinter Based Form Maker, comes in! TBFM is a tool for visually designing forms and graphical interfaces using Tkinter in Python. With TBFM, you can design your form and generate its Python code.
+
           </span>
 
         </div>
 
       </div>
+
     </section>
 
+
     <!-- Features -->
+
     <section>
+
       <div class="container">
 
         <h2 class="section-title">
+
           <i class="bi bi-stars"></i>
 
-          <span class="fa-text">ویژگی‌ها</span>
-          <span class="en-text">Features</span>
+          <span class="fa-text">
+            ویژگی‌ها
+          </span>
+
+          <span class="en-text">
+            Features
+          </span>
+
         </h2>
 
         <div class="features">
 
           <div class="feature">
+
             <div class="feature-icon">
               <i class="bi bi-mouse"></i>
             </div>
 
             <h3>
-              <span class="fa-text">آسان برای استفاده</span>
-              <span class="en-text">Easy to Use</span>
+
+              <span class="fa-text">
+                آسان برای استفاده
+              </span>
+
+              <span class="en-text">
+                Easy to Use
+              </span>
+
             </h3>
 
             <p>
+
               <span class="fa-text">
                 ساخت فرم‌ها بدون نیاز به نوشتن تمام کدها به صورت دستی.
               </span>
@@ -773,20 +1097,34 @@
               <span class="en-text">
                 Create forms without manually writing all the code.
               </span>
+
             </p>
+
           </div>
 
+
           <div class="feature">
+
             <div class="feature-icon">
-              <span class="py-icon">Py</span>
+              <span class="py-icon">
+                Py
+              </span>
             </div>
 
             <h3>
-              <span class="fa-text">پایتون</span>
-              <span class="en-text">Python</span>
+
+              <span class="fa-text">
+                پایتون
+              </span>
+
+              <span class="en-text">
+                Python
+              </span>
+
             </h3>
 
             <p>
+
               <span class="fa-text">
                 تولید کد پایتون برای فرم‌های ساخته‌شده با Tkinter.
               </span>
@@ -794,20 +1132,32 @@
               <span class="en-text">
                 Generate Python code for your Tkinter forms.
               </span>
+
             </p>
+
           </div>
 
+
           <div class="feature">
+
             <div class="feature-icon">
               <i class="bi bi-folder2-open"></i>
             </div>
 
             <h3>
-              <span class="fa-text">باز کردن فایل‌های ساخته‌شده</span>
-              <span class="en-text">Open Created Files</span>
+
+              <span class="fa-text">
+                باز کردن فایل‌های ساخته‌شده
+              </span>
+
+              <span class="en-text">
+                Open Created Files
+              </span>
+
             </h3>
 
             <p>
+
               <span class="fa-text">
                 فایل‌های ساخته‌شده را دوباره باز کرده و روی آن‌ها کار کنید.
               </span>
@@ -815,27 +1165,45 @@
               <span class="en-text">
                 Reopen created files and continue working on them.
               </span>
+
             </p>
+
           </div>
 
         </div>
+
       </div>
+
     </section>
 
+
     <!-- Releases -->
+
     <section id="releases">
+
       <div class="container">
 
         <h2 class="section-title">
+
           <i class="bi bi-box-seam"></i>
 
-          <span class="fa-text">نسخه‌ها</span>
-          <span class="en-text">Releases</span>
+          <span class="fa-text">
+            نسخه‌ها
+          </span>
+
+          <span class="en-text">
+            Releases
+          </span>
+
         </h2>
 
-        <div id="releasesList" class="releases">
+        <div
+          id="releasesList"
+          class="releases"
+        >
 
           <div class="release-loading">
+
             <i class="bi bi-arrow-repeat"></i>
 
             <span class="fa-text">
@@ -845,27 +1213,177 @@
             <span class="en-text">
               Loading releases...
             </span>
+
           </div>
 
         </div>
 
       </div>
+
     </section>
 
+
+    <!-- Rating -->
+
+    <section id="rating">
+
+      <div class="container">
+
+        <div class="glass rating-box">
+
+          <h2
+            class="section-title"
+            style="justify-content:center;"
+          >
+
+            <i class="bi bi-star"></i>
+
+            <span class="fa-text">
+              امتیاز به پروژه
+            </span>
+
+            <span class="en-text">
+              Rate this project
+            </span>
+
+          </h2>
+
+
+          <div class="rating-summary">
+
+            <div
+              id="averageStars"
+              class="average-stars"
+              aria-label="Average rating"
+            >
+
+              <i class="bi bi-star average-star empty"></i>
+              <i class="bi bi-star average-star empty"></i>
+              <i class="bi bi-star average-star empty"></i>
+              <i class="bi bi-star average-star empty"></i>
+              <i class="bi bi-star average-star empty"></i>
+
+            </div>
+
+
+            <div
+              id="averageText"
+              class="average-number"
+            >
+
+              <span class="fa-text">
+                در حال دریافت امتیاز...
+              </span>
+
+              <span class="en-text">
+                Loading rating...
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="rating-choice"
+            role="group"
+            aria-label="Rate this project"
+          >
+
+            <button
+              class="rating-star"
+              data-rating="1"
+              type="button"
+              aria-label="1 star"
+              title="1 star"
+            >
+              <i class="bi bi-star-fill"></i>
+            </button>
+
+            <button
+              class="rating-star"
+              data-rating="2"
+              type="button"
+              aria-label="2 stars"
+              title="2 stars"
+            >
+              <i class="bi bi-star-fill"></i>
+            </button>
+
+            <button
+              class="rating-star"
+              data-rating="3"
+              type="button"
+              aria-label="3 stars"
+              title="3 stars"
+            >
+              <i class="bi bi-star-fill"></i>
+            </button>
+
+            <button
+              class="rating-star"
+              data-rating="4"
+              type="button"
+              aria-label="4 stars"
+              title="4 stars"
+            >
+              <i class="bi bi-star-fill"></i>
+            </button>
+
+            <button
+              class="rating-star"
+              data-rating="5"
+              type="button"
+              aria-label="5 stars"
+              title="5 stars"
+            >
+              <i class="bi bi-star-fill"></i>
+            </button>
+
+          </div>
+
+
+          <p
+            id="ratingStatus"
+            class="rating-status"
+          ></p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
     <!-- Get TBFM -->
+
     <section>
+
       <div class="container">
 
         <div class="glass get-box">
 
-          <h2 class="section-title" style="justify-content:center;">
+          <h2
+            class="section-title"
+            style="justify-content:center;"
+          >
+
             <i class="bi bi-download"></i>
 
-            <span class="fa-text">دریافت TBFM</span>
-            <span class="en-text">Get TBFM</span>
+            <span class="fa-text">
+              دریافت TBFM
+            </span>
+
+            <span class="en-text">
+              Get TBFM
+            </span>
+
           </h2>
 
-          <p style="color:var(--muted); line-height:1.8;">
+
+          <p
+            style="color:var(--muted); line-height:1.8;"
+          >
 
             <span class="fa-text">
               برای اجرای TBFM به Python 3.x و Tkinter نیاز دارید.
@@ -877,20 +1395,22 @@
 
           </p>
 
+
           <a
-            href="https://github.com/AmirFazelEhtesham/TBFM"
+            href="https://www.python.org/downloads/"
             target="_blank"
             rel="noopener"
             class="button primary"
           >
-            <i class="bi bi-github"></i>
+
+            <i class="bi bi-download"></i>
 
             <span class="fa-text">
-              مشاهده در گیت‌هاب
+              دریافت پایتون
             </span>
 
             <span class="en-text">
-              View on GitHub
+              Get Python
             </span>
 
           </a>
@@ -898,26 +1418,41 @@
         </div>
 
       </div>
+
     </section>
 
+
     <!-- Tutorial -->
+
     <section id="tutorial">
+
       <div class="container">
 
         <h2 class="section-title">
+
           <i class="bi bi-journal-text"></i>
 
-          <span class="fa-text">آموزش استفاده از TBFM</span>
-          <span class="en-text">How to Use TBFM</span>
+          <span class="fa-text">
+            آموزش استفاده از TBFM
+          </span>
+
+          <span class="en-text">
+            How to Use TBFM
+          </span>
+
         </h2>
+
 
         <div class="glass">
 
           <div class="tutorial-steps">
 
+
             <div class="tutorial-step">
 
-              <div class="step-number">۱</div>
+              <div class="step-number">
+                ۱
+              </div>
 
               <div class="step-text">
 
@@ -933,9 +1468,12 @@
 
             </div>
 
+
             <div class="tutorial-step">
 
-              <div class="step-number">۲</div>
+              <div class="step-number">
+                ۲
+              </div>
 
               <div class="step-text">
 
@@ -951,9 +1489,12 @@
 
             </div>
 
+
             <div class="tutorial-step">
 
-              <div class="step-number">۳</div>
+              <div class="step-number">
+                ۳
+              </div>
 
               <div class="step-text">
 
@@ -969,9 +1510,12 @@
 
             </div>
 
+
             <div class="tutorial-step">
 
-              <div class="step-number">۴</div>
+              <div class="step-number">
+                ۴
+              </div>
 
               <div class="step-text">
 
@@ -987,9 +1531,12 @@
 
             </div>
 
+
             <div class="tutorial-step">
 
-              <div class="step-number">۵</div>
+              <div class="step-number">
+                ۵
+              </div>
 
               <div class="step-text">
 
@@ -1005,9 +1552,12 @@
 
             </div>
 
+
             <div class="tutorial-step">
 
-              <div class="step-number">۶</div>
+              <div class="step-number">
+                ۶
+              </div>
 
               <div class="step-text">
 
@@ -1023,16 +1573,75 @@
 
             </div>
 
+
           </div>
 
         </div>
 
       </div>
+
     </section>
 
   </main>
 
+
+  <!-- Rating Modal -->
+
+  <div
+    id="ratingModal"
+    class="modal-overlay"
+    hidden
+  >
+
+    <div
+      class="rating-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="ratingModalTitle"
+    >
+
+      <button
+        id="modalClose"
+        class="modal-close"
+        type="button"
+        aria-label="Close"
+      >
+
+        <i class="bi bi-x-lg"></i>
+
+      </button>
+
+
+      <div class="modal-icon">
+        <i class="bi bi-emoji-smile"></i>
+      </div>
+
+
+      <h3 id="ratingModalTitle">
+        Really?
+      </h3>
+
+
+      <p>
+        Really? Seriously? You gonna be kidding me.
+      </p>
+
+
+      <button
+        id="modalOkay"
+        class="button primary"
+        type="button"
+      >
+        Okay
+      </button>
+
+    </div>
+
+  </div>
+
+
   <!-- Footer -->
+
   <footer>
 
     © 2026
@@ -1047,18 +1656,51 @@
 
   </footer>
 
+
   <script>
 
     const GITHUB_API =
       "https://api.github.com/repos/AmirFazelEhtesham/TBFM/releases";
 
-    /* Language */
+
+    /*
+     * ================================
+     * TBFM RATING CONFIGURATION
+     * ================================
+     *
+     * Replace YOUR_GIST_ID with the ID
+     * of your public ratings Gist.
+     */
+
+    const TBFM_GIST_ID =
+      "133caf6b26365cb825511d367f149438";
+
+
+    const TBFM_GIST_API =
+      `https://api.github.com/gists/${TBFM_GIST_ID}`;
+
+
+    const TBFM_REPOSITORY =
+      "AmirFazelEhtesham/TBFM";
+
+
+    const RATING_STORAGE_KEY =
+      "tbfm-rating-submitted";
+
+
+    /* ================================
+       Language
+       ================================ */
 
     function setLanguage(lang) {
 
-      const isEnglish = lang === "en";
+      const isEnglish =
+        lang === "en";
 
-      document.body.classList.toggle("en", isEnglish);
+      document.body.classList.toggle(
+        "en",
+        isEnglish
+      );
 
       document.documentElement.lang =
         isEnglish ? "en" : "fa";
@@ -1066,30 +1708,49 @@
       document.documentElement.dir =
         isEnglish ? "ltr" : "rtl";
 
-      document.getElementById("langButtonText").textContent =
-        isEnglish ? "فارسی" : "English";
+      document.getElementById(
+        "langButtonText"
+      ).textContent =
+        isEnglish
+          ? "فارسی"
+          : "English";
 
       localStorage.setItem(
         "tbfm-language",
         lang
       );
+
+      updateRatingStatusLanguage();
+
     }
+
 
     function toggleLanguage() {
 
       const current =
-        localStorage.getItem("tbfm-language") || "fa";
+        localStorage.getItem(
+          "tbfm-language"
+        ) || "fa";
 
       setLanguage(
-        current === "fa" ? "en" : "fa"
+        current === "fa"
+          ? "en"
+          : "fa"
       );
+
     }
 
+
     setLanguage(
-      localStorage.getItem("tbfm-language") || "fa"
+      localStorage.getItem(
+        "tbfm-language"
+      ) || "fa"
     );
 
-    /* GitHub Releases */
+
+    /* ================================
+       GitHub Releases
+       ================================ */
 
     function escapeHTML(value) {
 
@@ -1102,20 +1763,23 @@
 
     }
 
+
     function formatDate(date) {
 
       if (!date) return "";
 
-      return new Date(date).toLocaleDateString(
-        "en-US",
-        {
-          year: "numeric",
-          month: "short",
-          day: "numeric"
-        }
-      );
+      return new Date(date)
+        .toLocaleDateString(
+          "en-US",
+          {
+            year: "numeric",
+            month: "short",
+            day: "numeric"
+          }
+        );
 
     }
+
 
     function cleanReleaseNotes(body) {
 
@@ -1128,29 +1792,38 @@
 
     }
 
+
     async function loadReleases() {
 
       const container =
-        document.getElementById("releasesList");
+        document.getElementById(
+          "releasesList"
+        );
 
       try {
 
-        const response = await fetch(
-          GITHUB_API,
-          {
-            headers: {
-              "Accept":
-                "application/vnd.github+json"
+        const response =
+          await fetch(
+            GITHUB_API,
+            {
+              headers: {
+                "Accept":
+                  "application/vnd.github+json"
+              }
             }
-          }
-        );
+          );
+
 
         if (!response.ok) {
-          throw new Error("GitHub API error");
+          throw new Error(
+            "GitHub API error"
+          );
         }
+
 
         const releases =
           await response.json();
+
 
         if (
           !Array.isArray(releases) ||
@@ -1176,44 +1849,56 @@
           `;
 
           return;
+
         }
 
+
         container.innerHTML = "";
+
 
         releases.forEach(
           (release, index) => {
 
             if (release.draft) return;
 
+
             const title =
               release.name ||
               release.tag_name ||
               "Untitled Release";
 
+
             const tag =
-              release.tag_name || "";
+              release.tag_name ||
+              "";
+
 
             const notes =
               cleanReleaseNotes(
                 release.body
               );
 
+
             const date =
               formatDate(
                 release.published_at
               );
 
+
             const isLatest =
               index === 0 &&
               !release.prerelease;
+
 
             const card =
               document.createElement(
                 "article"
               );
 
+
             card.className =
               "release-card";
+
 
             card.innerHTML = `
 
@@ -1223,6 +1908,7 @@
 
               </div>
 
+
               <div class="release-main">
 
                 <div class="release-title-row">
@@ -1230,6 +1916,7 @@
                   <span class="release-title">
                     ${escapeHTML(title)}
                   </span>
+
 
                   ${
                     tag
@@ -1240,6 +1927,7 @@
                       `
                       : ""
                   }
+
 
                   ${
                     isLatest
@@ -1261,9 +1949,11 @@
 
                 </div>
 
+
                 <div class="release-meta">
                   ${escapeHTML(date)}
                 </div>
+
 
                 ${
                   notes
@@ -1276,6 +1966,7 @@
                 }
 
               </div>
+
 
               <div class="release-actions">
 
@@ -1304,18 +1995,26 @@
 
             `;
 
-            container.appendChild(card);
+
+            container.appendChild(
+              card
+            );
 
           }
         );
 
+
         setLanguage(
-          localStorage.getItem("tbfm-language") || "fa"
+          localStorage.getItem(
+            "tbfm-language"
+          ) || "fa"
         );
+
 
       } catch (error) {
 
         console.error(error);
+
 
         container.innerHTML = `
 
@@ -1356,17 +2055,461 @@
 
         `;
 
+
         setLanguage(
-          localStorage.getItem("tbfm-language") || "fa"
+          localStorage.getItem(
+            "tbfm-language"
+          ) || "fa"
         );
 
       }
 
     }
 
+
     loadReleases();
+
+
+    /* ================================
+       Rating
+       ================================ */
+
+
+    function updateRatingStatusLanguage() {
+
+      const status =
+        document.getElementById(
+          "ratingStatus"
+        );
+
+      if (!status) return;
+
+
+      if (
+        localStorage.getItem(
+          RATING_STORAGE_KEY
+        )
+      ) {
+
+        status.textContent =
+          document.documentElement.lang === "fa"
+            ? "شما قبلاً امتیاز داده‌اید."
+            : "You already rated this project.";
+
+      }
+
+    }
+
+
+    function renderAverage(
+      average,
+      count
+    ) {
+
+      const stars =
+        document.querySelectorAll(
+          "#averageStars .average-star"
+        );
+
+
+      const rounded =
+        Math.round(
+          Number(average || 0) * 2
+        ) / 2;
+
+
+      stars.forEach(
+        (star, index) => {
+
+          star.className =
+            "bi average-star";
+
+
+          if (
+            index + 1 <= rounded
+          ) {
+
+            star.classList.add(
+              "bi-star-fill",
+              "full"
+            );
+
+          }
+
+          else if (
+            index + 0.5 === rounded
+          ) {
+
+            star.classList.add(
+              "bi-star-fill",
+              "half"
+            );
+
+          }
+
+          else {
+
+            star.classList.add(
+              "bi-star",
+              "empty"
+            );
+
+          }
+
+        }
+      );
+
+
+      const text =
+        document.getElementById(
+          "averageText"
+        );
+
+
+      if (!count) {
+
+        text.textContent =
+          document.documentElement.lang === "fa"
+            ? "هنوز امتیازی ثبت نشده"
+            : "No ratings yet";
+
+        return;
+
+      }
+
+
+      text.textContent =
+        document.documentElement.lang === "fa"
+          ? `${rounded.toFixed(2)} / 5 • ${count} امتیاز`
+          : `${rounded.toFixed(2)} / 5 • ${count} ratings`;
+
+    }
+
+
+    async function loadRatings() {
+
+      /*
+       * Prevent an unnecessary API request
+       * before the user replaces the placeholder.
+       */
+
+      if (
+        !TBFM_GIST_ID ||
+        TBFM_GIST_ID === "YOUR_GIST_ID"
+      ) {
+
+        renderAverage(
+          0,
+          0
+        );
+
+        return;
+
+      }
+
+
+      try {
+
+        const response =
+          await fetch(
+            TBFM_GIST_API +
+            "?t=" +
+            Date.now(),
+            {
+              cache: "no-store"
+            }
+          );
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            "Failed to read Gist."
+          );
+
+        }
+
+
+        const gist =
+          await response.json();
+
+
+        const file =
+          gist.files &&
+          gist.files["ratings.json"];
+
+
+        if (!file) {
+
+          throw new Error(
+            "ratings.json not found."
+          );
+
+        }
+
+
+        const data =
+          JSON.parse(
+            file.content
+          );
+
+
+        renderAverage(
+          data.average,
+          data.count
+        );
+
+
+      } catch (error) {
+
+        console.error(
+          "TBFM ratings:",
+          error
+        );
+
+
+        document.getElementById(
+          "averageText"
+        ).textContent =
+          document.documentElement.lang === "fa"
+            ? "خطا در دریافت امتیازات"
+            : "Unable to load ratings.";
+
+      }
+
+    }
+
+
+    /* ================================
+       Rating Modal
+       ================================ */
+
+    const ratingModal =
+      document.getElementById(
+        "ratingModal"
+      );
+
+
+    function openRatingModal() {
+
+      ratingModal.hidden =
+        false;
+
+    }
+
+
+    function closeRatingModal() {
+
+      ratingModal.hidden =
+        true;
+
+    }
+
+
+    document.getElementById(
+      "modalClose"
+    ).addEventListener(
+      "click",
+      closeRatingModal
+    );
+
+
+    document.getElementById(
+      "modalOkay"
+    ).addEventListener(
+      "click",
+      closeRatingModal
+    );
+
+
+    ratingModal.addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target ===
+          ratingModal
+        ) {
+
+          closeRatingModal();
+
+        }
+
+      }
+    );
+
+
+    document.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key === "Escape" &&
+          !ratingModal.hidden
+        ) {
+
+          closeRatingModal();
+
+        }
+
+      }
+    );
+
+
+    /* ================================
+       Submit Rating
+       ================================ */
+
+    function submitRating(
+      rating
+    ) {
+
+      rating =
+        Number(rating);
+
+
+      /*
+       * 1 star is intentionally blocked.
+       */
+
+      if (
+        rating === 1
+      ) {
+
+        openRatingModal();
+
+        return;
+
+      }
+
+
+      if (
+        rating < 2 ||
+        rating > 5
+      ) {
+
+        return;
+
+      }
+
+
+      /*
+       * Prevent repeated ratings
+       * from the same browser.
+       */
+
+      if (
+        localStorage.getItem(
+          RATING_STORAGE_KEY
+        )
+      ) {
+
+        document.getElementById(
+          "ratingStatus"
+        ).textContent =
+          document.documentElement.lang === "fa"
+            ? "شما قبلاً امتیاز داده‌اید."
+            : "You already rated this project.";
+
+        return;
+
+      }
+
+
+      /*
+       * GitHub's New Issue page receives
+       * the selected rating.
+       */
+
+      const title =
+        encodeURIComponent(
+          `TBFM Rating: ${rating}`
+        );
+
+
+      const body =
+        encodeURIComponent(
+          `Rating: ${rating}\n\n` +
+          `Submitted from the TBFM website.`
+        );
+
+
+      const issueURL =
+        `https://github.com/${TBFM_REPOSITORY}` +
+        `/issues/new` +
+        `?title=${title}` +
+        `&body=${body}` +
+        `&labels=tbfm-rating`;
+
+
+      /*
+       * Store the local rating immediately.
+       * The actual public average will update
+       * after the GitHub Action processes the issue.
+       */
+
+      localStorage.setItem(
+        RATING_STORAGE_KEY,
+        String(rating)
+      );
+
+
+      /*
+       * Give immediate local feedback.
+       */
+
+      renderAverage(
+        rating,
+        1
+      );
+
+
+      const status =
+        document.getElementById(
+          "ratingStatus"
+        );
+
+
+      status.textContent =
+        document.documentElement.lang === "fa"
+          ? "امتیاز شما ثبت شد؛ GitHub برای تأیید نهایی باز می‌شود."
+          : "Your rating is selected; GitHub will open for final submission.";
+
+
+      window.open(
+        issueURL,
+        "_blank",
+        "noopener,noreferrer"
+      );
+
+    }
+
+
+    document
+      .querySelectorAll(
+        ".rating-star"
+      )
+      .forEach(
+        button => {
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              submitRating(
+                button.dataset.rating
+              );
+
+            }
+          );
+
+        }
+      );
+
+
+    loadRatings();
 
   </script>
 
 </body>
-  </html>
+</html>
